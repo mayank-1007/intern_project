@@ -1,17 +1,38 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Signup.css'
+import validator from 'validator'; // Importing validator
+import './Signup.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({}); // State to hold validation errors
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setErrors({}); // Reset errors
+
+    // Validate fields
+    const newErrors = {};
+    if (!validator.isLength(name, { min: 1 })) {
+      newErrors.name = "Name is required.";
+    }
+    if (!validator.isEmail(email)) {
+      newErrors.email = "Email is not valid.";
+    }
+    if (!validator.isLength(password, { min: 6 })) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return; // Stop the signup process if there are validation errors
+    }
+
     try {
       console.log(name + ' ' + email + ' ' + password);
       const res = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/signup', {
@@ -19,17 +40,15 @@ const SignupPage = () => {
         email,
         password,
       });
-      if(res.data.token){
+      if (res.data.token) {
         alert('Signup successful');
         navigate('/login');
-      }
-      else if(res.data.msg === "User already exists"){
-        if(res.data.user.password !== password) console.log(res.data.user.password,password);
-        if(res.data.user.name === name){
+      } else if (res.data.msg === "User already exists") {
+        if (res.data.user.password !== password) console.log(res.data.user.password, password);
+        if (res.data.user.name === name) {
           alert('User already exists');
           navigate('/login');
-        }
-        else{
+        } else {
           alert('User already exists with different credentials. Try with Another email!');
         }
       }
@@ -37,10 +56,10 @@ const SignupPage = () => {
     } catch (err) {
       if (err.response && err.response.data && err.response.data.msg) {
         alert(`Signup failed: ${err.response.data.msg}`);
-    } else {
+      } else {
         console.error('Signup failed:', err);
         alert('Signup failed due to an unexpected error.');
-    }
+      }
     }
   };
 
@@ -59,6 +78,7 @@ const SignupPage = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
+          {errors.name && <div className="text-danger">{errors.name}</div>}
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email</label>
@@ -71,6 +91,7 @@ const SignupPage = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          {errors.email && <div className="text-danger">{errors.email}</div>}
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
@@ -83,6 +104,7 @@ const SignupPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {errors.password && <div className="text-danger">{errors.password}</div>}
         </div>
         <button type="submit" className="btn btn-custom w-100">Signup</button>
       </form>
