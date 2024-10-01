@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logout, setUser } from '../features/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../features/userSlice';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/login', {
+      const res = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/login', {
         email,
         password,
       });
@@ -61,6 +61,7 @@ const LoginPage = () => {
 
   return (
     <div>
+      <button onClick={() => navigate('/')}>Main Page</button>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input

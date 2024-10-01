@@ -42,6 +42,8 @@ const TaskList = () => {
 
   return (
     <div>
+      <button onClick={() => navigate('/')}>Main Page</button>
+      <button onClick={() => navigate('/score')}>Check the scores</button>
       <TaskForm currentTask={currentTask} setCurrentTask={setCurrentTask} />
       <div>
         <input type="text" name="assignedUser" placeholder="Filter by assigned user" onChange={handleFilterChange} />
@@ -64,7 +66,6 @@ const TaskList = () => {
         <thead>
           <tr>
             <th>Task Name</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -74,7 +75,7 @@ const TaskList = () => {
         </tbody>
       </table>
 
-      <div className="pagination">
+      <div className="">
         <button 
           onClick={() => handlePageChange(currentPage - 1)} 
           disabled={currentPage === 1}
@@ -98,7 +99,7 @@ const TaskList = () => {
         >
           Next &gt;
         </button>
-        <button onClick={() => navigate('/score')}>Check the scores</button>
+        
       </div>
     </div>  
     </div>

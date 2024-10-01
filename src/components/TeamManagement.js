@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const TeamManagement = () => {
@@ -25,7 +25,7 @@ const TeamManagement = () => {
         const userId = userInfo?._id || JSON.parse(localStorage.getItem('user'))?._id;
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users');
+                const response = await axios.get('https://intern-project-backend-fgxq.onrender.com/api/users');
                 localStorage.setItem('users', JSON.stringify(response.data)); // Cache in localStorage
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -34,7 +34,7 @@ const TeamManagement = () => {
 
         const fetchUsersOne = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/api/usersone', {  id: teamNameId });
+                const response = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/usersone', {  id: teamNameId });
                 localStorage.setItem('user', JSON.stringify(response.data)); // Cache in localStorage
             } catch (error) {
                 console.error('Error fetching user:', error.message);
@@ -42,7 +42,7 @@ const TeamManagement = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/teams', { name: teamName, userId });
+            const response = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/teams', { name: teamName, userId });
             console.log('Team created:', response.data);
             // localStorage.clear('user');
             fetchUsers();

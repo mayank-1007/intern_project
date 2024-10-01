@@ -1,10 +1,10 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { fetchTasks, deleteTask } from '../redux/taskSlice';
 import { logout, store as storeInfo } from '../features/userSlice';
+import { deleteTask, fetchTasks } from '../redux/taskSlice';
 import TaskForm from './TaskForme';
 import TaskItem from './TaskItem';
 
@@ -63,12 +63,12 @@ const Sidebar = () => {
             if (storedInfo?.team) {
                 setLoading(true);
                 try {
-                    const response = await axios.post('http://localhost:5000/api/teamData', { teamId: storedInfo.team });
+                    const response = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/teamData', { teamId: storedInfo.team });
                     setTeamName(response.data.name);
                     
                     const memberIds = response.data.members;
                     const membersResponse = await Promise.all(
-                        memberIds.map(memberId => axios.post(`http://localhost:5000/api/usersone`, { id: memberId }))
+                        memberIds.map(memberId => axios.post(`https://intern-project-backend-fgxq.onrender.com/api/usersone`, { id: memberId }))
                     );
 
                     const membersData = membersResponse.map(res => res.data);
@@ -104,7 +104,6 @@ const Sidebar = () => {
                     console.log("User logged out!");
                     navigate('/login');
                 }}>Logout</button>
-                <button onClick={() => navigate('/addtask')}>Add and assign tasks</button>
                 <h3>Team Members of {teamName.toUpperCase()}</h3>
                 <ul>
                     {teamMembers.map((member) => (
@@ -144,7 +143,7 @@ const Sidebar = () => {
                         </tbody>
                     </table>
 
-                    <div className="pagination">
+                    <div className="">
                         <button 
                             onClick={() => handlePageChange(currentPage - 1)} 
                             disabled={currentPage === 1}

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 
 const UserSearch = () => {
@@ -15,7 +15,7 @@ const UserSearch = () => {
         const fetchUsers = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:5000/api/users');
+                const response = await axios.get('https://intern-project-backend-fgxq.onrender.com/api/users');
                 setUsers(response.data);
                 setFilteredUsers(response.data);
                 localStorage.setItem('users', JSON.stringify(response.data)); // Cache in localStorage
@@ -65,7 +65,7 @@ const UserSearch = () => {
         console.log(user._id, selectedUser);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/teams/update', {
+            const response = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/teams/update', {
                 userId: user._id,
                 teamId: selectedUser
             });
@@ -83,7 +83,7 @@ const UserSearch = () => {
                 type="text"
                 value={name}
                 onChange={handleInputChange}
-                placeholder="Search for users"
+                placeholder="Search for users and select the user name to add to team"
                 className="search-input"
             />
             {loading ? <p>Loading...</p> : (

@@ -26,9 +26,10 @@ const TaskItem = ({ task, setCurrentTask, onDelete }) => {
         onChange={(e) => setEmail(e.target.value)} 
         placeholder="Enter email"
       />
+      <button onClick={handleAssign}>Assign</button>
+      <br/>
       <button onClick={() => setCurrentTask(task)}>Edit</button>
       <button onClick={() => onDelete(task._id)}>Delete</button>
-      <button onClick={handleAssign}>Assign</button>
     </div>
   );
 };

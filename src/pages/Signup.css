@@ -1,0 +1,25 @@
+.container {
+    max-width: 400px; /* Limit the width for a better look */
+    margin: auto;
+  }
+  
+  .btn-custom {
+    background-color: #ff5733; /* A bold color for the button */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    transition: background-color 0.3s; /* Smooth transition on hover */
+  }
+  
+  .btn-custom:hover {
+    background-color: #c70039; /* Darker shade on hover */
+  }
+  
+  .form-control {
+    border: 1px solid #ff5733; /* Match the border color with button */
+  }
+  
+  .form-control:focus {
+    border-color: #c70039; /* Focus color */
+    box-shadow: 0 0 5px rgba(255, 87, 51, 0.5); /* Subtle shadow on focus */
+  }
+  

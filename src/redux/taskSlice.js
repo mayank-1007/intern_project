@@ -1,32 +1,32 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (params) => {
-  const response = await axios.get('http://localhost:5000/api', { params });
+  const response = await axios.get('https://intern-project-backend-fgxq.onrender.com/api', { params });
   return response.data;
 });
 
 export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
-  const response = await axios.post('http://localhost:5000/api', task);
+  const response = await axios.post('https://intern-project-backend-fgxq.onrender.com/api', task);
   return response.data;
 });
 
 export const assign = createAsyncThunk('/assign', async ({ memberId, taskIds }) => {
-  const response = await axios.put(`http://localhost:5000/api/assign`, {memberId, taskIds});
+  const response = await axios.put(`https://intern-project-backend-fgxq.onrender.com/api/assign`, {memberId, taskIds});
   return response.data;
 });
 
 export const updateTask = createAsyncThunk('tasks/updateTask', async ({ id, task }) => {
-  const response = await axios.put(`http://localhost:5000/api/${id}`, task);
+  const response = await axios.put(`https://intern-project-backend-fgxq.onrender.com/api/${id}`, task);
   return response.data;
 });
 export const assignTask = createAsyncThunk('tasks/assignTask', async ({ id, email }) => {
-  const response = await axios.put(`http://localhost:5000/api/addtask/${id}`, {id, email});
+  const response = await axios.put(`https://intern-project-backend-fgxq.onrender.com/api/addtask/${id}`, {id, email});
   return response.data;
 });
 
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id) => {
-  await axios.delete(`http://localhost:5000/api/${id}`);
+  await axios.delete(`https://intern-project-backend-fgxq.onrender.com/api/${id}`);
   return id;
 });
 

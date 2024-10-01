@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Signup.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -12,7 +14,7 @@ const SignupPage = () => {
     e.preventDefault();
     try {
       console.log(name + ' ' + email + ' ' + password);
-      const res = await axios.post('http://localhost:5000/api/signup', {
+      const res = await axios.post('https://intern-project-backend-fgxq.onrender.com/api/signup', {
         name,
         email,
         password,
@@ -43,29 +45,50 @@ const SignupPage = () => {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Signup</button>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Signup</h2>
+      <form onSubmit={handleSignup} className="border p-4 rounded shadow">
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Name</label>
+          <input
+            type="text"
+            id="name"
+            className="form-control"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            className="form-control"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-custom w-100">Signup</button>
       </form>
+      <p className="text-center mt-3">
+        Already have an account? <a href="/login">Login here</a>
+      </p>
     </div>
   );
 };

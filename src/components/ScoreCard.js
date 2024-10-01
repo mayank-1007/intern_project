@@ -1,16 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         
-        const response = await axios.get('http://localhost:5000/api/users');
+        const response = await axios.get('https://intern-project-backend-fgxq.onrender.com/api/users');
         // if (!response.ok) {
         //     throw new Error('Network response was not ok');
         // }
@@ -48,6 +50,7 @@ const UserTable = () => {
   return (
     <div>
       <h1>User Details</h1>
+      <button onClick={() => navigate('/')}>Main Page</button>
       <button onClick={downloadCSV}>Download CSV</button>
       <table>
         <thead>
@@ -55,7 +58,7 @@ const UserTable = () => {
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Phone</th>
+            <th>TeamId</th>
           </tr>
         </thead>
         <tbody>
