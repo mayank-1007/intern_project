@@ -79,7 +79,7 @@ const LoginPage = () => {
         Don't have an account? <a href="/signup">Signup here</a>
       </p>
       <button onClick={() => navigate('/')} className="btn btn-link">Main Page</button>
-      <image src="image1.png" alt="new"/>
+      <img src="image1.png" alt="new"/>
     </div>
   );
 };
