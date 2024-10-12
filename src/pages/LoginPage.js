@@ -80,6 +80,8 @@ const LoginPage = () => {
       </p>
       <button onClick={() => navigate('/')} className="btn btn-link">Main Page</button>
       <img src="image1.png" alt="new"/>
+      <img src="image2.png" alt="new"/>
+      <img src="image3.png" alt="new"/>
     </div>
   );
 };
