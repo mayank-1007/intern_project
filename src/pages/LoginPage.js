@@ -83,6 +83,7 @@ const LoginPage = () => {
       <img src="image2.png" alt="new"/>
       <img src="image3.png" alt="new"/>
       <img src="image4.png" alt="new"/>
+      <img src="user.png" alt="new"/>
     </div>
   );
 };
